@@ -6,3 +6,4 @@ ta
 requests
 streamlit
 plotly
+pykrx

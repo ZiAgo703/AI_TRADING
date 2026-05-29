@@ -14,6 +14,7 @@ st.set_page_config(
 )
 
 JSON_PATH = Path("output/latest/all_stock_rank.json")
+INDICES_PATH = Path("output/latest/market_indices.json")
 
 CATEGORY_COLOR = {
     "TOP 관심": "#27ae60",
@@ -28,12 +29,21 @@ CATEGORY_COLOR = {
 # ── Data loaders ─────────────────────────────────────────────────────────────
 
 @st.cache_data(ttl=300)
-def load_ranking() -> tuple[pd.DataFrame | None, str | None]:
+def load_ranking() -> tuple[pd.DataFrame | None, str | None, bool]:
     if not JSON_PATH.exists():
-        return None, None
+        return None, None, False
     with open(JSON_PATH, encoding="utf-8") as f:
         raw = json.load(f)
-    return pd.DataFrame(raw["stocks"]), raw["generated_at"]
+    stale = bool(raw.get("stale", False))
+    return pd.DataFrame(raw["stocks"]), raw["generated_at"], stale
+
+
+@st.cache_data(ttl=300)
+def load_indices() -> dict:
+    if not INDICES_PATH.exists():
+        return {}
+    with open(INDICES_PATH, encoding="utf-8") as f:
+        return json.load(f).get("indices", {})
 
 
 @st.cache_data(ttl=600)
@@ -132,14 +142,25 @@ def returns_chart(row) -> go.Figure:
 def main():
     st.title("📈 AI 주식 분석 대시보드")
 
-    df, generated_at = load_ranking()
+    df, generated_at, is_stale = load_ranking()
 
     if df is None:
         st.warning("분석 결과가 없습니다. 아래 명령을 먼저 실행하세요.")
-        st.code("python main.py")
+        st.code("python main.py\n# 또는\npython scheduler/morning_runner.py")
         st.stop()
 
-    st.caption(f"마지막 업데이트: {generated_at}")
+    if is_stale:
+        st.warning(f"⚠️ 마지막 분석 실행에 실패했습니다. 표시 데이터가 오래됐을 수 있습니다. (기준: {generated_at})")
+    else:
+        st.caption(f"마지막 업데이트: {generated_at}")
+
+    # ── 시장 지수 패널 ────────────────────────────────────────────────────────
+    indices = load_indices()
+    if indices:
+        idx_cols = st.columns(len(indices))
+        for col, (name, data) in zip(idx_cols, indices.items()):
+            delta_str = f"{data['change_pct']:+.2f}%"
+            col.metric(name, f"{data['close']:,.2f}", delta_str)
 
     # ── Sidebar ──────────────────────────────────────────────────────────────
     with st.sidebar:

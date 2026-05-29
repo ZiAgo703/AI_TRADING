@@ -1,4 +1,4 @@
-# Generated outputs
+# Generated chart / report outputs
 *.csv
 charts/
 rank_charts/
@@ -6,14 +6,23 @@ stock_output/
 us_charts/
 korea_charts/
 
-# Output (keep .gitkeep)
+# Modular pipeline output (keep .gitkeep stubs)
 output/latest/*
 output/history/*
 !output/latest/.gitkeep
 !output/history/.gitkeep
 
-# Python
+# Python bytecode
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+*.pycache
+
+# Environment / IDE
 .env
+.venv/
+venv/
+.idea/
+.vscode/
+*.egg-info/

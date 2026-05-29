@@ -40,6 +40,6 @@ def calc_returns(data: pd.DataFrame) -> dict:
     ret_1m = (current - close.iloc[-20]) / close.iloc[-20] * 100 if n >= 20 else 0.0
     ret_3m = (current - close.iloc[-60]) / close.iloc[-60] * 100 if n >= 60 else 0.0
     ret_6m = (current - close.iloc[0]) / close.iloc[0] * 100
-    volatility = close.pct_change().std() * 100
+    volatility = close.pct_change(fill_method=None).std() * 100
 
     return {"1m": ret_1m, "3m": ret_3m, "6m": ret_6m, "volatility": volatility}

@@ -5,6 +5,7 @@ WORKDIR /app
 # Korean font for matplotlib charts
 RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-nanum \
+    fontconfig \
     && fc-cache -fv \
     && rm -rf /var/lib/apt/lists/*
 
