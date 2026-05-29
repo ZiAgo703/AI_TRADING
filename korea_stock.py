@@ -1,3 +1,4 @@
+import os
 import yfinance as yf
 import ta
 import pandas as pd
@@ -9,6 +10,9 @@ stocks = {
     "삼성전자": "005930.KS",
     "SK하이닉스": "000660.KS"
 }
+
+chart_dir = "korea_charts"
+os.makedirs(chart_dir, exist_ok=True)
 
 results = []
 
@@ -43,7 +47,21 @@ for name, symbol in stocks.items():
         "신호": signal
     })
 
+    plt.figure(figsize=(12, 6))
+    plt.plot(data.index, data["Close"], label="Close")
+    plt.plot(data.index, data["MA20"], label="MA20")
+    plt.plot(data.index, data["MA60"], label="MA60")
+    plt.title(f"{name} ({symbol}) — {signal}")
+    plt.xlabel("Date")
+    plt.ylabel("Price")
+    plt.legend()
+    plt.grid(True)
+    filename = f"{symbol.replace('.', '_')}_{name}.png"
+    plt.savefig(os.path.join(chart_dir, filename))
+    plt.close()
+
 df = pd.DataFrame(results)
 
 print("\n===== 한국 주식 분석 =====")
 print(df)
+print(f"\n차트 저장 완료: {chart_dir} 폴더")

@@ -1,0 +1,14 @@
+[
+  {"name": "Apple",      "ticker": "AAPL"},
+  {"name": "Microsoft",  "ticker": "MSFT"},
+  {"name": "NVIDIA",     "ticker": "NVDA"},
+  {"name": "AMD",        "ticker": "AMD"},
+  {"name": "Qualcomm",   "ticker": "QCOM"},
+  {"name": "Broadcom",   "ticker": "AVGO"},
+  {"name": "Tesla",      "ticker": "TSLA"},
+  {"name": "Google",     "ticker": "GOOGL"},
+  {"name": "Amazon",     "ticker": "AMZN"},
+  {"name": "Meta",       "ticker": "META"},
+  {"name": "Netflix",    "ticker": "NFLX"},
+  {"name": "Palantir",   "ticker": "PLTR"}
+]

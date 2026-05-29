@@ -3,6 +3,14 @@
 charts/
 rank_charts/
 stock_output/
+us_charts/
+korea_charts/
+
+# Output (keep .gitkeep)
+output/latest/*
+output/history/*
+!output/latest/.gitkeep
+!output/history/.gitkeep
 
 # Python
 __pycache__/

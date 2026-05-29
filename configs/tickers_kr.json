@@ -1,0 +1,14 @@
+[
+  {"name": "삼성전자",         "ticker": "005930.KS"},
+  {"name": "SK하이닉스",       "ticker": "000660.KS"},
+  {"name": "현대차",           "ticker": "005380.KS"},
+  {"name": "기아",             "ticker": "000270.KS"},
+  {"name": "한화에어로스페이스","ticker": "012450.KS"},
+  {"name": "두산에너빌리티",   "ticker": "034020.KS"},
+  {"name": "NAVER",            "ticker": "035420.KS"},
+  {"name": "카카오",           "ticker": "035720.KS"},
+  {"name": "LG에너지솔루션",   "ticker": "373220.KS"},
+  {"name": "삼성SDI",          "ticker": "006400.KS"},
+  {"name": "POSCO홀딩스",      "ticker": "005490.KS"},
+  {"name": "KB금융",           "ticker": "105560.KS"}
+]
