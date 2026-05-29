@@ -1,0 +1,11 @@
+# Generated outputs
+*.csv
+charts/
+rank_charts/
+stock_output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
